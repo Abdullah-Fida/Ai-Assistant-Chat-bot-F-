@@ -94,11 +94,16 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
             style={{
-              textShadow: '0 0 20px rgba(255, 255, 255, 0.4), 0 0 40px rgba(255, 255, 255, 0.2)',
+              textShadow: '0 2px 10px rgba(0, 0, 0, 0.5)',
             }}
           >
             Your AI Personal Assistant for <br />
-            <span className="bg-gradient-to-r from-[#10B981] via-[#6EE7B7] to-[#059669] bg-clip-text text-transparent italic">Projects, Tasks, and Payments</span>
+            <span
+              className="bg-gradient-to-r from-[#10B981] via-[#6EE7B7] to-[#059669] bg-clip-text text-transparent italic px-2 inline-block"
+              style={{ filter: 'drop-shadow(0 0 1px rgba(16, 185, 129, 0.2))' }}
+            >
+              Projects, Tasks, and Payments
+            </span>
           </motion.h1>
 
           {/* Subheading */}
@@ -168,8 +173,6 @@ export default function App() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.4 }}
           >
-            {/* Background Glow for Hero Center */}
-            <div className="absolute -top-64 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#10B981]/10 rounded-full blur-[120px] -z-10 animate-pulse" />
 
             {['English & Urdu Support', 'WhatsApp Interface', 'No API Needed', 'Daily Cron Summaries'].map((feature, index) => (
               <motion.div
@@ -205,9 +208,6 @@ export default function App() {
 
       <Footer />
 
-      {/* Ambient Light Effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#4F46E5] rounded-full blur-[120px] opacity-20 pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#10B981] rounded-full blur-[120px] opacity-20 pointer-events-none" />
     </div >
   );
-}
+} 
