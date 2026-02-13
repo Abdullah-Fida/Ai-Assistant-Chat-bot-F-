@@ -1,0 +1,155 @@
+{
+  "name": "AI Assistant - Message Processing",
+  "nodes": [
+    {
+      "name": "WhatsApp Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [250, 300],
+      "parameters": {
+        "path": "whatsapp-incoming",
+        "responseMode": "responseNode"
+      }
+    },
+    {
+      "name": "Extract Data",
+      "type": "n8n-nodes-base.set",
+      "position": [450, 300],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "message",
+              "name": "message",
+              "value": "={{$json.body.message}}",
+              "type": "string"
+            },
+            {
+              "id": "userId",
+              "name": "userId",
+              "value": "={{$json.body.userId}}",
+              "type": "string"
+            },
+            {
+              "id": "phoneNumber",
+              "name": "phoneNumber",
+              "value": "={{$json.body.phoneNumber}}",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "OpenAI Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [650, 200],
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {
+          "temperature": 0.1,
+          "maxTokens": 500
+        }
+      }
+    },
+    {
+      "name": "Extract Intent",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "position": [850, 300],
+      "parameters": {
+        "messages": "You are an intent extraction engine for WhatsApp project assistant. Output ONLY JSON.\nAllowed intents: create_project, create_task, mark_task_done, create_payment, mark_payment_paid, add_reminder, daily_summary, greeting, unknown\nExtract: title, project_name, deadline, client_name, amount\nAlways include 'needs_confirmation': true\n\nMessage: {{$json.message}}"
+      }
+    },
+    {
+      "name": "Format Output",
+      "type": "n8n-nodes-base.set",
+      "position": [1050, 300],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "intent",
+              "name": "intent",
+              "value": "={{$json.intent}}",
+              "type": "string"
+            },
+            {
+              "id": "data",
+              "name": "data",
+              "value": "={{$json}}",
+              "type": "object"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Check Intent",
+      "type": "n8n-nodes-base.switch",
+      "position": [1250, 300],
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "leftValue": "={{$json.intent}}",
+              "rightValue": "unknown",
+              "operator": "equals"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Unknown Handler",
+      "type": "n8n-nodes-base.code",
+      "position": [1450, 150],
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    response: \"I'm not sure I understand. Try:\\n- 'Add task for project'\\n- 'Payment due from client'\\n- 'Mark task done'\"\n  }\n}];"
+      }
+    },
+    {
+      "name": "Generate Confirmation",
+      "type": "n8n-nodes-base.code",
+      "position": [1450, 400],
+      "parameters": {
+        "jsCode": "const data = $json.data;\nlet msg = '';\nif(data.intent === 'create_task') {\n  msg = `Confirm Task:\\n📝 ${data.title || 'Task'}\\n📅 ${data.deadline || 'No deadline'}\\nReply YES or NO.`;\n} else if(data.intent === 'create_payment') {\n  msg = `Confirm Payment:\\n💰 ${data.amount || ''} INR\\n👤 ${data.client_name || 'Client'}\\n📅 ${data.due_date || 'No date'}\\nReply YES or NO.`;\n} else {\n  msg = `Confirm ${data.intent}?\\nReply YES or NO.`;\n}\nreturn [{\n  json: {\n    response: msg,\n    needsConfirmation: true\n  }\n}];"
+      }
+    },
+    {
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [1650, 300],
+      "parameters": {
+        "responseMode": "lastNode"
+      }
+    }
+  ],
+  "connections": {
+    "WhatsApp Webhook": {
+      "main": [[{ "node": "Extract Data", "type": "main", "index": 0 }]]
+    },
+    "Extract Data": {
+      "main": [[{ "node": "Extract Intent", "type": "main", "index": 0 }]]
+    },
+    "OpenAI Model": {
+      "ai_languageModel": [[{ "node": "Extract Intent", "type": "ai_languageModel", "index": 0 }]]
+    },
+    "Extract Intent": {
+      "main": [[{ "node": "Format Output", "type": "main", "index": 0 }]]
+    },
+    "Format Output": {
+      "main": [[{ "node": "Check Intent", "type": "main", "index": 0 }]]
+    },
+    "Check Intent": {
+      "main": [
+        [{ "node": "Unknown Handler", "type": "main", "index": 0 }],
+        [{ "node": "Generate Confirmation", "type": "main", "index": 1 }]
+      ]
+    },
+    "Unknown Handler": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    },
+    "Generate Confirmation": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  }
+}
