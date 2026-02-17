@@ -11,7 +11,7 @@ import { AboutSection } from './components/AboutSection';
 import { Footer } from './components/Footer';
 import { AuthPage } from './components/AuthPage';
 import { WhatsAppFloatingUI } from './components/WhatsAppFloatingUI';
-import { Sparkles, Zap, MessageCircle } from 'lucide-react';
+import { Sparkles, Zap, MessageCircle, ArrowRight } from 'lucide-react';
 
 export default function App() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -75,28 +75,27 @@ export default function App() {
 
       {/* Hero Section */}
       <main className="relative z-10 flex items-center justify-center min-h-screen px-6 pt-20">
-        {/* Abstract Background Effects */}
+        {/* Subtle ambient glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none -z-10 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#10B981]/10 rounded-full blur-[120px] animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#4F46E5]/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+          <div className="absolute top-[20%] left-[20%] w-[400px] h-[400px] bg-[#10B981]/[0.04] rounded-full blur-[120px]" />
+          <div className="absolute bottom-[20%] right-[20%] w-[400px] h-[400px] bg-[#4F46E5]/[0.04] rounded-full blur-[120px]" />
         </div>
 
         <div className="max-w-5xl mx-auto text-center relative">
-          {/* New Premium Badge */}
+          {/* Premium Badge */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-10 backdrop-blur-md"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06] mb-12"
           >
             <span className="flex h-2 w-2 rounded-full bg-[#10B981] animate-pulse" />
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60">Introducing v2.0 - Now with AI Voice</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Introducing v2.0 — Now with AI Voice</span>
           </motion.div>
 
-          {/* Floating Icons with Ambient Glow */}
+          {/* Floating Icons */}
           <motion.div
-            className="flex justify-center gap-12 mb-10"
+            className="flex justify-center gap-16 mb-12"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -108,59 +107,41 @@ export default function App() {
             ].map((item, i) => (
               <motion.div
                 key={i}
-                animate={{
-                  y: [0, -15, 0],
-                  rotate: [0, i % 2 === 0 ? 5 : -5, 0],
-                }}
+                animate={{ y: [0, -12, 0] }}
                 transition={{
                   duration: 3 + i * 0.5,
                   repeat: Infinity,
                   ease: "easeInOut",
                   delay: item.delay,
                 }}
-                className="relative group"
+                className="relative"
               >
-                <item.Icon className="w-10 h-10" style={{
+                <item.Icon className="w-8 h-8" style={{
                   color: item.color,
-                  filter: `drop-shadow(0 0 15px ${item.color}80)`
+                  filter: `drop-shadow(0 0 12px ${item.color}60)`
                 }} />
-                <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 blur-xl transition-opacity rounded-full" />
               </motion.div>
             ))}
           </motion.div>
 
           {/* Main Heading */}
-          <div className="relative inline-block">
-            <motion.h1
-              className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 text-white tracking-tight leading-[0.9] md:leading-[1.1]"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
-            >
-              Master Your <br />
-              <span
-                className="bg-gradient-to-r from-white via-white/80 to-white/20 bg-clip-text text-transparent italic px-4 inline-block py-2 pb-4 tracking-tighter"
-                style={{ filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.2))' }}
-              >
-                Business Operations
-              </span>
-            </motion.h1>
-
-            {/* Floating 'Mental Clarity' Chip */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.5, duration: 1 }}
-              className="absolute -right-4 top-1/2 hidden lg:flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-3 rounded-2xl backdrop-blur-2xl rotate-12 hover:rotate-0 transition-transform cursor-pointer group shadow-2xl"
-            >
-              <div className="w-2 h-2 rounded-full bg-[#10B981] group-hover:scale-150 transition-transform" />
-              <span className="text-xs font-bold text-white tracking-widest uppercase">98% Clarity</span>
-            </motion.div>
-          </div>
+          <motion.h1
+            className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold mb-8 text-white tracking-tight leading-[1.05]"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          >
+            Master Your{' '}
+            <span className="bg-gradient-to-r from-[#10B981] via-[#4F46E5] to-[#7C3AED] bg-clip-text text-transparent">
+              Business
+            </span>
+            <br />
+            <span className="text-white/80 font-light">Operations</span>
+          </motion.h1>
 
           {/* Subheading */}
           <motion.p
-            className="text-xl md:text-2xl text-white/50 mb-12 max-w-2xl mx-auto font-light leading-relaxed tracking-wide"
+            className="text-lg md:text-xl text-white/30 mb-14 max-w-2xl mx-auto font-light leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.8 }}
@@ -168,51 +149,54 @@ export default function App() {
             The world's first AI Assistant that runs your entire agency through simple WhatsApp conversations.
           </motion.p>
 
-          {/* CTA Buttons - More Premium */}
+          {/* CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.1 }}
           >
             <motion.button
               onClick={() => setShowAuthPage(true)}
-              className="group relative px-10 py-5 bg-[#10B981] text-black font-black text-sm tracking-[0.2em] uppercase rounded-2xl overflow-hidden transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
+              className="group flex items-center gap-3 px-8 py-4 bg-[#10B981] text-black font-bold text-sm tracking-[0.15em] uppercase rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(16,185,129,0.25)]"
+              whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span className="relative z-10">Start Free Trial</span>
-              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity" />
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_40px_#10B98180]" />
+              Start Free Trial
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </motion.button>
 
             <motion.button
-              className="group px-10 py-5 bg-white/5 text-white font-black text-sm tracking-[0.2em] uppercase rounded-2xl border border-white/10 hover:border-white/30 backdrop-blur-md transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2, backgroundColor: 'rgba(255,255,255,0.08)' }}
+              className="group px-8 py-4 bg-white/[0.03] text-white/60 font-bold text-sm tracking-[0.15em] uppercase rounded-xl border border-white/[0.06] hover:border-white/15 hover:text-white transition-all duration-300"
+              whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
             >
               Explore Features
             </motion.button>
           </motion.div>
 
-          {/* Feature Pills - Better Alignment & Style */}
+          {/* Trust Metrics */}
           <motion.div
-            className="flex flex-wrap justify-center gap-6 mt-20 relative"
+            className="flex flex-wrap justify-center gap-12"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.4 }}
           >
-            {['English & Urdu', 'Daily Scans', 'Financial Tracking', 'Automated Reminders'].map((feature, index) => (
+            {[
+              { value: '500+', label: 'Active Users' },
+              { value: '10K+', label: 'Tasks Managed' },
+              { value: '99.9%', label: 'Uptime' },
+              { value: '4.9★', label: 'Rating' },
+            ].map((stat, index) => (
               <motion.div
-                key={feature}
-                className="px-6 py-2.5 bg-white/[0.03] border border-white/5 rounded-xl text-white/40 text-[10px] font-black uppercase tracking-widest flex items-center gap-2 hover:text-[#10B981] hover:border-[#10B981]/20 transition-all cursor-default"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 1.4 + index * 0.1 }}
-                whileHover={{ y: -2 }}
+                key={stat.label}
+                className="text-center"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1.5 + index * 0.1 }}
               >
-                <div className="w-1 h-1 rounded-full bg-current opacity-50" />
-                {feature}
+                <div className="text-xl font-bold text-white/60 tracking-tight">{stat.value}</div>
+                <div className="text-[10px] font-medium uppercase tracking-[0.2em] text-white/20 mt-1">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>

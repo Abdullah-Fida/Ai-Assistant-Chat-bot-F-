@@ -1,73 +1,104 @@
 import { motion } from 'motion/react';
-import { Rocket, ShieldCheck, Zap } from 'lucide-react';
+import { ShieldCheck, Zap, Rocket } from 'lucide-react';
 
 export const RoadmapSection = () => {
     const items = [
         {
-            icon: <ShieldCheck className="w-6 h-6 text-[#10B981]" />,
-            title: "MVP Phase (Current)",
-            description: "Manual WhatsApp replies with AI-generated templates. Secure confirmation-first logic and daily summaries."
+            icon: ShieldCheck,
+            title: "MVP Phase",
+            status: "Current",
+            description: "Manual WhatsApp replies with AI-generated templates. Secure confirmation-first logic and daily summaries.",
+            color: "#10B981",
+            step: "01"
         },
         {
-            icon: <Zap className="w-6 h-6 text-[#4F46E5]" />,
+            icon: Zap,
             title: "Automation Phase",
-            description: "Full WhatsApp Business API integration for one-click reminders and automated client follow-ups."
+            status: "Next",
+            description: "Full WhatsApp Business API integration for one-click reminders and automated client follow-ups.",
+            color: "#4F46E5",
+            step: "02"
         },
         {
-            icon: <Rocket className="w-6 h-6 text-[#7C3AED]" />,
+            icon: Rocket,
             title: "Scale Phase",
-            description: "Multi-user dashboards, advanced agency analytics, and integration with popular CRM tools."
+            status: "Future",
+            description: "Multi-user dashboards, advanced agency analytics, and integration with popular CRM tools.",
+            color: "#7C3AED",
+            step: "03"
         }
     ];
 
     return (
-        <section className="relative z-10 py-32 px-6 bg-black">
-            <div className="max-w-7xl mx-auto">
+        <section className="relative z-10 py-32 px-6">
+            <div className="max-w-5xl mx-auto">
                 <motion.div
                     className="text-center mb-20"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
                 >
-                    <span className="text-[#4F46E5] font-semibold tracking-widest uppercase text-sm mb-4 block">Product Evolution</span>
-                    <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">Built for Today, <br />Ready for Tomorrow</h2>
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06] mb-8">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Roadmap</span>
+                    </span>
+                    <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+                        Built for Today,{' '}
+                        <span className="text-white/40 font-light">Ready for Tomorrow</span>
+                    </h2>
                 </motion.div>
 
-                <div className="relative">
-                    {/* Futuristic Connector Line */}
-                    <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-y-1/2 hidden md:block" />
-                    <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#10B981] to-transparent -translate-y-1/2 hidden md:block blur-[2px] opacity-30 animate-pulse" />
+                <div className="space-y-4">
+                    {items.map((item, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: index * 0.15 }}
+                            className="group relative p-8 md:p-10 rounded-[1.5rem] bg-white/[0.015] border border-white/[0.05] hover:border-white/10 transition-all duration-500 overflow-hidden"
+                        >
+                            {/* Hover glow */}
+                            <div
+                                className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-[80px] opacity-0 group-hover:opacity-15 transition-opacity duration-700"
+                                style={{ backgroundColor: item.color }}
+                            />
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-                        {items.map((item, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: index * 0.2 }}
-                                className="relative bg-white/[0.02] border border-white/5 p-10 rounded-[2.5rem] hover:border-white/20 transition-all duration-500 group overflow-hidden backdrop-blur-xl"
-                            >
-                                {/* Background Number */}
-                                <div className="absolute -top-6 -right-4 text-[10rem] font-black text-white/[0.02] pointer-events-none group-hover:text-white/[0.04] transition-colors leading-none tracking-tighter">
-                                    0{index + 1}
+                            <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
+                                {/* Step number + Icon */}
+                                <div className="flex items-center gap-5 shrink-0">
+                                    <span className="text-3xl font-bold text-white/[0.06] tracking-tight">{item.step}</span>
+                                    <div
+                                        className="w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500"
+                                        style={{
+                                            backgroundColor: `${item.color}10`,
+                                            border: `1px solid ${item.color}20`,
+                                        }}
+                                    >
+                                        <item.icon className="w-5 h-5" style={{ color: item.color }} />
+                                    </div>
                                 </div>
 
-                                <div className="relative z-10">
-                                    <div className="mb-8 p-5 rounded-3xl bg-white/5 border border-white/10 w-fit group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 shadow-2xl">
-                                        {item.icon}
+                                {/* Content */}
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <h3 className="text-lg font-bold text-white tracking-tight">{item.title}</h3>
+                                        <span
+                                            className="text-[9px] font-bold uppercase tracking-[0.2em] px-2.5 py-0.5 rounded-full"
+                                            style={{
+                                                backgroundColor: `${item.color}15`,
+                                                color: item.color,
+                                                border: `1px solid ${item.color}20`
+                                            }}
+                                        >
+                                            {item.status}
+                                        </span>
                                     </div>
-                                    <h3 className="text-2xl font-black text-white mb-4 tracking-tight uppercase tracking-widest leading-none">
-                                        {item.title}
-                                    </h3>
-                                    <p className="text-white/40 text-sm font-medium leading-relaxed tracking-wide">
+                                    <p className="text-white/30 text-sm font-light leading-relaxed max-w-2xl">
                                         {item.description}
                                     </p>
                                 </div>
-
-                                {/* Glow for the card */}
-                                <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-white/5 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity" />
-                            </motion.div>
-                        ))}
-                    </div>
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
             </div>
         </section>

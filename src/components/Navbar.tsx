@@ -47,8 +47,8 @@ export const Navbar = ({ isLoggedIn, username, onAuthClick, onLogout }: NavbarPr
                         backdropFilter: `blur(${navBlur}px)`,
                     }}
                     className={`pointer-events-auto flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 transition-all duration-500 max-w-7xl mx-auto will-change-transform ${isScrolled
-                        ? 'bg-black/40 border border-white/10 shadow-2xl'
-                        : 'bg-transparent border-transparent'
+                        ? 'bg-black/50 border border-white/[0.06] shadow-2xl'
+                        : 'bg-transparent border border-transparent'
                         }`}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -60,12 +60,12 @@ export const Navbar = ({ isLoggedIn, username, onAuthClick, onLogout }: NavbarPr
                     </div>
 
                     {/* Center: Desktop Links */}
-                    <div className="hidden md:flex items-center justify-center bg-white/5 border border-white/5 rounded-full px-2 py-1 gap-1">
+                    <div className="hidden md:flex items-center justify-center bg-white/[0.03] border border-white/[0.05] rounded-full px-1 py-1 gap-0.5">
                         {links.map((link) => (
                             <a
                                 key={link.name}
                                 href={link.href}
-                                className="relative px-6 py-2 text-sm font-medium text-white/70 hover:text-white transition-all duration-300 group overflow-hidden rounded-full"
+                                className="relative px-5 py-2 text-sm font-medium text-white/50 hover:text-white transition-all duration-300 group overflow-hidden rounded-full"
                             >
                                 <span className="relative z-10">{link.name}</span>
                                 <motion.div

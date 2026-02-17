@@ -1,5 +1,4 @@
 @import './fonts.css';
-/* @import './theme.css'; */
 
 @tailwind base;
 @tailwind components;
@@ -13,11 +12,38 @@
     body {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        background-color: #000000;
+        color: #ffffff;
+    }
+
+    ::selection {
+        background-color: rgba(16, 185, 129, 0.3);
+        color: #ffffff;
     }
 }
 
+/* Global scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Custom scrollbar for chat */
 .custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
+    width: 3px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
@@ -25,6 +51,6 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(16, 185, 129, 0.3);
+    background: rgba(16, 185, 129, 0.2);
     border-radius: 20px;
 }
