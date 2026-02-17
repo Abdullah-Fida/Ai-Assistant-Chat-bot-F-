@@ -70,8 +70,8 @@ export const ProcessSection = () => {
 
                                 {/* The Chat Bubble Visualization */}
                                 <div className={`relative p-4 rounded-xl text-xs max-w-[90%] shadow-xl ${step.type === 'bot'
-                                        ? 'bg-[#242424] text-white/90 rounded-tl-none mr-auto'
-                                        : 'bg-[#10B981] text-white rounded-tr-none ml-auto'
+                                    ? 'bg-[#242424] text-white/90 rounded-tl-none mr-auto'
+                                    : 'bg-[#10B981] text-white rounded-tr-none ml-auto'
                                     }`}>
                                     {step.chatMsg}
                                     <div className="mt-2 flex items-center justify-end gap-1 opacity-40">
@@ -81,8 +81,8 @@ export const ProcessSection = () => {
 
                                     {/* Bubble Tail */}
                                     <div className={`absolute top-0 w-2 h-2 ${step.type === 'bot'
-                                            ? 'left-[-8px] border-r-[8px] border-r-[#242424] border-b-[8px] border-b-transparent'
-                                            : 'right-[-8px] border-l-[8px] border-l-[#10B981] border-b-[8px] border-b-transparent'
+                                        ? 'left-[-8px] border-r-[8px] border-r-[#242424] border-b-[8px] border-b-transparent'
+                                        : 'right-[-8px] border-l-[8px] border-l-[#10B981] border-b-[8px] border-b-transparent'
                                         }`} />
                                 </div>
                             </div>

@@ -44,18 +44,18 @@ export default function App() {
     <div className="min-h-screen bg-[#000000] overflow-x-hidden relative selection:bg-[#10B981] selection:text-black">
       {/* Scroll Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#10B981] via-[#4F46E5] to-[#7C3AED] z-[110] origin-left"
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#10B981] via-[#4F46E5] to-[#7C3AED] z-[100] origin-left"
         style={{ scaleX: scrollYProgress }}
       />
 
-      {/* Noise Texture Overlay */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-[98] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      {/* Noise Texture Overlay - Moved to back */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.02] z-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] transform translate-z-0" />
 
       {/* Star Particles Background */}
       <StarParticles mouseX={mousePosition.x} mouseY={mousePosition.y} />
 
       {/* Gradient Overlay for Hero */}
-      <div className="absolute top-0 inset-x-0 h-screen bg-gradient-to-b from-transparent via-transparent to-[#000000] pointer-events-none" style={{ zIndex: 2 }} />
+      <div className="absolute top-0 inset-x-0 h-screen bg-gradient-to-b from-transparent via-transparent to-[#000000] pointer-events-none" style={{ zIndex: 1 }} />
 
       {/* Navbar */}
       <Navbar

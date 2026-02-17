@@ -85,8 +85,8 @@ export const InfoSection = () => {
 
                                     {/* The Chat Bubble Styled Content */}
                                     <div className={`relative p-6 rounded-2xl text-sm leading-relaxed font-medium ${feature.type === 'bot'
-                                            ? 'bg-[#1c1c1c] text-white/70 border border-white/5 rounded-tl-none'
-                                            : 'bg-[#10B981] text-black rounded-tr-none'
+                                        ? 'bg-[#1c1c1c] text-white/70 border border-white/5 rounded-tl-none'
+                                        : 'bg-[#10B981] text-black rounded-tr-none'
                                         }`}>
                                         {feature.description}
 
@@ -100,8 +100,8 @@ export const InfoSection = () => {
 
                                         {/* Tail */}
                                         <div className={`absolute top-0 w-3 h-3 ${feature.type === 'bot'
-                                                ? 'left-[-12px] border-r-[12px] border-r-[#1c1c1c] border-b-[12px] border-b-transparent'
-                                                : 'right-[-12px] border-l-[12px] border-l-[#10B981] border-b-[12px] border-b-transparent'
+                                            ? 'left-[-12px] border-r-[12px] border-r-[#1c1c1c] border-b-[12px] border-b-transparent'
+                                            : 'right-[-12px] border-l-[12px] border-l-[#10B981] border-b-[12px] border-b-transparent'
                                             }`} />
                                     </div>
                                 </div>

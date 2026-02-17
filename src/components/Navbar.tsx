@@ -20,7 +20,7 @@ export const Navbar = ({ isLoggedIn, username, onAuthClick, onLogout }: NavbarPr
     const navWidth = useTransform(scrollY, [0, 100], ['100%', '90%']);
     const navTop = useTransform(scrollY, [0, 100], [0, 20]);
     const navRadius = useTransform(scrollY, [0, 100], [0, 50]);
-    const navBlur = useTransform(scrollY, [0, 100], [5, 15]);
+    const navBlur = useTransform(scrollY, [0, 100], [0, 12]);
 
     useEffect(() => {
         const updateScroll = () => {
@@ -46,7 +46,7 @@ export const Navbar = ({ isLoggedIn, username, onAuthClick, onLogout }: NavbarPr
                         borderRadius: navRadius,
                         backdropFilter: `blur(${navBlur}px)`,
                     }}
-                    className={`pointer-events-auto flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 transition-colors duration-500 max-w-7xl mx-auto ${isScrolled
+                    className={`pointer-events-auto flex items-center justify-between px-4 sm:px-8 py-3 sm:py-4 transition-all duration-500 max-w-7xl mx-auto will-change-transform ${isScrolled
                         ? 'bg-black/40 border border-white/10 shadow-2xl'
                         : 'bg-transparent border-transparent'
                         }`}
