@@ -33,23 +33,38 @@ export const RoadmapSection = () => {
                 </motion.div>
 
                 <div className="relative">
-                    {/* Horizontal line for desktop */}
-                    <div className="hidden md:block absolute top-1/2 left-0 w-full h-[1px] bg-white/5 -translate-y-1/2" />
+                    {/* Futuristic Connector Line */}
+                    <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-y-1/2 hidden md:block" />
+                    <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#10B981] to-transparent -translate-y-1/2 hidden md:block blur-[2px] opacity-30 animate-pulse" />
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
                         {items.map((item, index) => (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: index * 0.2 }}
-                                className="bg-[#0c0c0c] border border-white/5 p-8 rounded-3xl hover:border-white/10 transition-colors group"
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: index * 0.2 }}
+                                className="relative bg-white/[0.02] border border-white/5 p-10 rounded-[2.5rem] hover:border-white/20 transition-all duration-500 group overflow-hidden backdrop-blur-xl"
                             >
-                                <div className="mb-6 p-4 rounded-2xl bg-white/5 w-fit group-hover:scale-110 transition-transform">
-                                    {item.icon}
+                                {/* Background Number */}
+                                <div className="absolute -top-6 -right-4 text-[10rem] font-black text-white/[0.02] pointer-events-none group-hover:text-white/[0.04] transition-colors leading-none tracking-tighter">
+                                    0{index + 1}
                                 </div>
-                                <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-                                <p className="text-white/40 font-light leading-relaxed">{item.description}</p>
+
+                                <div className="relative z-10">
+                                    <div className="mb-8 p-5 rounded-3xl bg-white/5 border border-white/10 w-fit group-hover:scale-110 group-hover:bg-white/10 transition-all duration-500 shadow-2xl">
+                                        {item.icon}
+                                    </div>
+                                    <h3 className="text-2xl font-black text-white mb-4 tracking-tight uppercase tracking-widest leading-none">
+                                        {item.title}
+                                    </h3>
+                                    <p className="text-white/40 text-sm font-medium leading-relaxed tracking-wide">
+                                        {item.description}
+                                    </p>
+                                </div>
+
+                                {/* Glow for the card */}
+                                <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-white/5 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity" />
                             </motion.div>
                         ))}
                     </div>

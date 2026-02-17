@@ -46,7 +46,7 @@ export function Logo() {
         </svg>
       </div>
 
-      <div className="text-white/90 text-sm font-medium tracking-wide">
+      <div className="text-white/90 text-[10px] md:text-sm font-medium tracking-wide hidden md:block uppercase tracking-[0.1em]">
         AI Assistant Project Manager
       </div>
     </motion.div>

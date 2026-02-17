@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Check } from 'lucide-react';
 
 export const PricingSection = () => {
@@ -98,67 +98,94 @@ export const PricingSection = () => {
                 </motion.div>
 
                 <motion.div
-                    className="grid grid-cols-1 md:grid-cols-3 gap-10"
+                    className="grid grid-cols-1 md:grid-cols-3 gap-10 relative"
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ margin: "-50px" }}
                 >
+                    {/* Background glow for the middle section */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#10B981]/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+
                     {plans.map((plan) => (
                         <motion.div
                             key={plan.name}
-                            className={`relative p-10 rounded-[2.5rem] border ${plan.highlight
-                                ? 'bg-white/[0.08] border-[#10B981]/50 shadow-[0_0_50px_rgba(16,185,129,0.15)]'
+                            className={`relative p-10 rounded-[2.5rem] border backdrop-blur-xl ${plan.highlight
+                                ? 'bg-white/[0.08] border-[#10B981]/40 shadow-[0_20px_60px_rgba(16,185,129,0.1)]'
                                 : 'bg-white/[0.03] border-white/10 hover:border-white/20'
-                                } flex flex-col transition-all duration-500 group overflow-hidden`}
+                                } flex flex-col transition-all duration-500 group overflow-hidden h-full`}
                             variants={cardVariants}
-                            whileHover={{ y: -10, transition: { duration: 0.4 } }}
+                            whileHover={{
+                                y: -15,
+                                rotateX: 2,
+                                rotateY: -2,
+                                transition: { duration: 0.4 }
+                            }}
+                            style={{ perspective: "1000px" }}
                         >
                             {plan.highlight && (
-                                <div className="absolute -top-6 left-1/2 -translate-x-1/2 px-6 py-2 bg-[#10B981] text-white text-[0.65rem] uppercase tracking-widest font-black rounded-full shadow-[0_5px_15px_rgba(16,185,129,0.4)]">
+                                <div className="absolute -top-1 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#10B981] to-transparent" />
+                            )}
+
+                            {plan.highlight && (
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 px-6 py-2 bg-[#10B981] text-black text-[0.65rem] uppercase tracking-[0.2em] font-black rounded-b-xl shadow-lg">
                                     Most Popular
                                 </div>
                             )}
 
                             {/* Decorative background glow for cards */}
-                            <div className="absolute -top-24 -right-24 w-48 h-48 bg-white/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                            <div className={`absolute -top-24 -right-24 w-48 h-48 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 ${plan.highlight ? 'bg-[#10B981]/20' : 'bg-white/5'}`} />
 
-                            <div className="mb-10 text-center">
-                                <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">{plan.name}</h3>
-                                <p className="text-white/40 text-sm font-light leading-relaxed h-10">{plan.description}</p>
+                            <div className="mb-10 text-center relative pt-4">
+                                <h3 className="text-2xl font-black text-white mb-3 tracking-widest uppercase">{plan.name}</h3>
+                                <p className="text-white/40 text-xs font-medium leading-relaxed h-10 tracking-widest uppercase">{plan.description}</p>
                             </div>
 
-                            <div className="flex flex-col items-center mb-10">
+                            <div className="flex flex-col items-center mb-10 relative">
                                 <div className="flex items-baseline">
                                     <span className="text-6xl font-black text-white tracking-tighter">{plan.price}</span>
-                                    {plan.period && <span className="text-white/30 text-lg ml-2 font-light">{plan.period}</span>}
+                                    {plan.period && <span className="text-white/30 text-base ml-2 font-medium tracking-widest uppercase">{plan.period}</span>}
                                 </div>
-                                {plan.secondPrice && (
-                                    <span className="text-[#10B981] text-sm mt-1 font-semibold tracking-wide">
-                                        or {plan.secondPrice}
-                                    </span>
-                                )}
+                                <div className="h-6 mt-1 overflow-hidden">
+                                    <AnimatePresence mode="wait">
+                                        {plan.secondPrice && (
+                                            <motion.span
+                                                initial={{ y: 20, opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                className="text-[#10B981] text-[10px] font-black tracking-[0.2em] uppercase block"
+                                            >
+                                                or {plan.secondPrice}
+                                            </motion.span>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
                             </div>
 
-                            <ul className="flex-1 space-y-5 mb-12">
+                            <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent mb-10" />
+
+                            <ul className="flex-1 space-y-6 mb-12">
                                 {plan.features.map((feature) => (
-                                    <li key={feature} className="flex items-center text-white/50 text-sm font-light">
-                                        <div className={`p-1 rounded-full mr-4 ${plan.highlight ? 'bg-[#10B981]/10 text-[#10B981]' : 'bg-white/5 text-white/20'}`}>
-                                            <Check className="w-3.5 h-3.5" />
+                                    <li key={feature} className="flex items-start text-white/50 text-xs font-bold tracking-wider uppercase group/item">
+                                        <div className={`p-1 rounded-full mr-4 mt-0.5 transition-colors ${plan.highlight ? 'bg-[#10B981]/20 text-[#10B981]' : 'bg-white/5 text-white/20 group-hover/item:text-white'}`}>
+                                            <Check className="w-3 h-3" />
                                         </div>
-                                        {feature}
+                                        <span className="flex-1 leading-relaxed">{feature}</span>
                                     </li>
                                 ))}
                             </ul>
 
                             <motion.button
-                                className={`w-full py-5 rounded-2xl font-bold tracking-wide transition-all duration-300 ${plan.highlight
-                                    ? 'bg-[#10B981] text-white shadow-lg shadow-[#10B981]/25 hover:bg-[#059669] hover:shadow-[#059669]/40'
-                                    : 'bg-white/5 text-white border border-white/10 hover:bg-white/10 hover:border-white/20'
+                                className={`w-full py-5 rounded-2xl font-black text-xs tracking-[0.2em] uppercase transition-all duration-300 relative overflow-hidden group/btn ${plan.highlight
+                                    ? 'bg-[#10B981] text-black shadow-xl shadow-[#10B981]/20'
+                                    : 'bg-white/5 text-white border border-white/10 hover:bg-white/10'
                                     }`}
+                                whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                             >
-                                {plan.name === "Free" ? "Get Started" : "Choose Plan"}
+                                <span className="relative z-10">{plan.name === "Free" ? "Start Now" : "Unlock Power"}</span>
+                                {plan.highlight && (
+                                    <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+                                )}
                             </motion.button>
                         </motion.div>
                     ))}

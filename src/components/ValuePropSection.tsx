@@ -31,7 +31,13 @@ export const ValuePropSection = () => {
                         transition={{ duration: 0.8 }}
                     >
                         More Than Just a Tool. <br />
-                        <span className="text-white/40 italic font-light">It's Your Business Partner.</span>
+                        <div className="flex items-center justify-center gap-3 mt-2">
+                            <span className="text-white/40 italic font-light">It's Your Business Partner.</span>
+                            <div className="flex items-center gap-1.5 px-3 py-1 bg-[#10B981]/10 rounded-full border border-[#10B981]/20">
+                                <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
+                                <span className="text-[#10B981] text-[10px] font-bold uppercase tracking-wider">Online</span>
+                            </div>
+                        </div>
                     </motion.h2>
                 </div>
 
